@@ -93,11 +93,10 @@ public class Destroyer : MonoBehaviour
 
     IEnumerator BackgroundReturn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return null;
         roommate.SetBool("Roomate1", false);
         roommate.SetBool("Roomate2", false);
         roommate.SetBool("Roomate3", false);
-        man.SetBool("Hide", false);
 
         rb.inView = true;
         

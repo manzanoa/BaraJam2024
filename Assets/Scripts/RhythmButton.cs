@@ -5,7 +5,7 @@ using UnityEngine;
 public class RhythmButton : MonoBehaviour
 {
     [SerializeField]
-    public KeyCode key;
+    public KeyCode key1, key2;
     [SerializeField]
     bool active = false;
     [SerializeField]
@@ -14,7 +14,7 @@ public class RhythmButton : MonoBehaviour
     Animator man, roommate;
 
     public bool createMode;
-    public GameObject notePrefab;
+    public GameObject notePrefab1, notePrefab2;
     public bool inView;
 
     public Destroyer d;
@@ -32,20 +32,25 @@ public class RhythmButton : MonoBehaviour
 
         if (createMode)
         {
-            if (Input.GetKeyDown(key))
+            if (Input.GetKeyDown(key1))
             {
-                GameObject n = Instantiate(notePrefab, transform.position, Quaternion.identity);
+                GameObject n = Instantiate(notePrefab1, transform.position, Quaternion.identity);
+                n.transform.parent = transform;
+            }
+            else if (Input.GetKeyDown(key2))
+            {
+                GameObject n = Instantiate(notePrefab2, transform.position, Quaternion.identity);
                 n.transform.parent = transform;
             }
         }
         else
         {
-            if (Input.GetKeyDown(key))
+            if (Input.GetKeyDown(key2))
             {
                 Debug.Log("Press");
 
                 Destroy(note);
-                man.SetBool("Hide", true);
+                man.SetTrigger("Hide");
                 inView = false;
 
                 int rand = Random.Range(0, 3);
@@ -63,6 +68,17 @@ public class RhythmButton : MonoBehaviour
                 }
 
                 d.StartBackgroundReturn();
+            }
+            else if(Input.GetKeyDown((key1)))
+            {
+                Destroy(note);
+                man.SetTrigger("Jerk");
+                //check for the type of note
+                //if jerk start jerk anim and gain points
+                //if hide then start hide anim
+                //if missed then start caught anim and lose points
+                //if jerk but is hide start caught anim and lose points
+                //if hide but is jerk start hide anim and lose points
             }
         }
 

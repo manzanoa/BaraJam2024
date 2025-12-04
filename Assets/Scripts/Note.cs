@@ -6,7 +6,13 @@ public class Note : MonoBehaviour
 {
 
     public float speed;
+    public enum Action
+    {
+        Jerk,
+        Hide
+    }
 
+    public Action action;
 
     private void Start()
     {
